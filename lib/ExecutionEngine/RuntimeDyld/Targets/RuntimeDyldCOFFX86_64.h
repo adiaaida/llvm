@@ -147,11 +147,11 @@ public:
       break;
     }
 
-    case COFF::IMAGE_REL_AMD64_ADDR64: {
+    /*case COFF::IMAGE_REL_AMD64_ADDR64: {
       uint64_t *Displacement = (uint64_t *)ObjTarget;
       Addend = *Displacement;
       break;
-    }
+    }*/
 
     default:
       break;

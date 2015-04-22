@@ -26,6 +26,7 @@ class Function;
 class MachineFunction;
 class OProfileWrapper;
 class IntelJITEventsWrapper;
+class LLILCJitEventWrapper;
 
 namespace object {
   class ObjectFile;
@@ -80,6 +81,13 @@ public:
 
   // Get a pointe to the GDB debugger registration listener.
   static JITEventListener *createGDBRegistrationListener();
+
+  // Construct a LLILCJitEventListener
+  static JITEventListener *createLLILCJitEventListener();
+
+  // Construct a LLILCJitEventListener with a test LLILC Jit API implementation
+  static JITEventListener *createLLILCJitEventListener(
+                                      LLILCJitEventWrapper* AlternativeImpl);
 
 #if LLVM_USE_INTEL_JITEVENTS
   // Construct an IntelJITEventListener
