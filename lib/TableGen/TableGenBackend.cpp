@@ -11,10 +11,9 @@
 //
 //===----------------------------------------------------------------------===//
 
+#include "llvm/TableGen/TableGenBackend.h"
 #include "llvm/ADT/Twine.h"
 #include "llvm/Support/raw_ostream.h"
-#include "llvm/TableGen/TableGenBackend.h"
-#include <algorithm>
 
 using namespace llvm;
 
@@ -24,7 +23,7 @@ static void printLine(raw_ostream &OS, const Twine &Prefix, char Fill,
                       StringRef Suffix) {
   size_t Pos = (size_t)OS.tell();
   assert((MAX_LINE_LEN - Prefix.str().size() - Suffix.size() > 0) &&
-    "header line exceeds max limit");
+         "header line exceeds max limit");
   OS << Prefix;
   const size_t e = MAX_LINE_LEN - Suffix.size();
   for (size_t i = (size_t)OS.tell() - Pos; i < e; ++i)

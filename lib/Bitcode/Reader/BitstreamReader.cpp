@@ -39,15 +39,16 @@ bool BitstreamCursor::EnterSubBlock(unsigned BlockID, unsigned *NumWordsP) {
 
   // Get the codesize of this block.
   CurCodeSize = ReadVBR(bitc::CodeLenWidth);
+  // We can't read more than MaxChunkSize at a time
+  if (CurCodeSize > MaxChunkSize)
+    return true;
+
   SkipToFourByteBoundary();
   unsigned NumWords = Read(bitc::BlockSizeWidth);
   if (NumWordsP) *NumWordsP = NumWords;
 
   // Validate that this block is sane.
-  if (CurCodeSize == 0 || AtEndOfStream())
-    return true;
-
-  return false;
+  return CurCodeSize == 0 || AtEndOfStream();
 }
 
 static uint64_t readAbbreviatedField(BitstreamCursor &Cursor,
